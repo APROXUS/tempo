@@ -1,0 +1,34 @@
+{
+  "name": "tempo",
+  "version": "1.0.0",
+  "description": "Rythm bot alternative...",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tsc": "tsc -w --skipLibCheck"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/albie6544/tempo.git"
+  },
+  "keywords": [
+    "discord",
+    "bot",
+    "rythm",
+    "tempo",
+    "albie"
+  ],
+  "author": "Albie6544 (AAOS)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/albie6544/tempo/issues"
+  },
+  "homepage": "https://github.com/albie6544/tempo#readme",
+  "dependencies": {
+    "discord.js": "^13.3.1",
+    "dotenv": "^10.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.4.4"
+  }
+}

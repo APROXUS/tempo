@@ -1,5 +1,8 @@
 "use strict";
 // Use PM2 (npm) to run the service in the background...
+// Use 'tsc init' to initalize compiler...
+// Use 'npm run tsc' for compiler...
+// Use 'nodemon .' for server...
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
@@ -69,9 +72,6 @@ var client = new discord_js_1.default.Client({
         discord_js_1.Intents.FLAGS.GUILD_VOICE_STATES
     ]
 });
-function delay(ms) {
-    return new Promise(function (resolve) { return setTimeout(resolve, ms); });
-}
 client.on('ready', function () {
     var _a;
     console.log('(STANDBY) The bot is ready...');

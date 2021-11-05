@@ -1,22 +1,17 @@
 // Use PM2 (npm) to run the service in the background...
 
-import DiscordJS, { Intents } from 'discord.js'
+import discordjs, { Intents } from 'discord.js'
 import dotenv from 'dotenv'
-import { threadId } from 'worker_threads'
 
 dotenv.config()
 
-const client = new DiscordJS.Client({
+const client = new discordjs.Client({
     intents: [
         Intents.FLAGS.GUILDS,
         Intents.FLAGS.GUILD_MESSAGES,
         Intents.FLAGS.GUILD_VOICE_STATES
     ]
 })
-
-function delay(ms: number) {
-    return new Promise( resolve => setTimeout(resolve, ms) );
-}
 
 client.on('ready', () => {
     console.log('(STANDBY) The bot is ready...')
@@ -44,7 +39,7 @@ client.on('ready', () => {
                 name: 'video',
                 description: 'The URL or YouTube search to play...',
                 required: true,
-                type: DiscordJS.Constants.ApplicationCommandOptionTypes.STRING
+                type: discordjs.Constants.ApplicationCommandOptionTypes.STRING
             }
         ]
     })

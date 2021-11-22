@@ -1,14 +1,21 @@
+//
 // Use PM2 (npm) to run the service in the background...
-// Use 'tsc init' to initalize compiler...
-// Use 'npm run tsc' for compiler...
+// Use 'node run tsc' for compiler...
 // Use 'nodemon .' for server...
+//
 
-import discordjs, { Intents } from 'discord.js'
+// Imports
+import DiscordJS, { Intents } from 'discord.js'
 import dotenv from 'dotenv'
-
 dotenv.config()
 
-const client = new discordjs.Client({
+// Variables
+const guildid = '779283948059623455'
+var songext = '.m4a'
+var songcur = ''
+
+// Main Thread
+const client = new DiscordJS.Client({
     intents: [
         Intents.FLAGS.GUILDS,
         Intents.FLAGS.GUILD_MESSAGES,
@@ -19,7 +26,6 @@ const client = new discordjs.Client({
 client.on('ready', () => {
     console.log('(STANDBY) The bot is ready...')
 
-    const guildid = '779283948059623455'
     const guild = client.guilds.cache.get(guildid)
     let commands
 
@@ -42,7 +48,7 @@ client.on('ready', () => {
                 name: 'video',
                 description: 'The URL or YouTube search to play...',
                 required: true,
-                type: discordjs.Constants.ApplicationCommandOptionTypes.STRING
+                type: DiscordJS.Constants.ApplicationCommandOptionTypes.STRING
             }
         ]
     })
@@ -72,6 +78,17 @@ client.on('interactionCreate', async (interaction) => {
         })
     } else if (commandName === 'play') {
         const video = options.getString('video')!
+
+        // Checking if the message author is in a voice channel.
+        if (!interaction.member.voice.channel) return interaction.reply("You must be in a voice channel.");
+        // Checking if the bot is in a voice channel.
+        if (interaction.guild.me.voice.channel) return interaction.reply("I'm already playing.");
+        
+        // Joining the channel and creating a VoiceConnection.
+        interaction.member.voice.channel.join().then(VoiceConnection => {
+            // Playing the music, and, on finish, disconnecting the bot.
+            VoiceConnection.play("StillDRE.mp3").on("finish", () => VoiceConnection.disconnect());
+        })
 
         interaction.reply({
             content: `Playing ${video} now...`

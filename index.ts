@@ -1,6 +1,6 @@
 //
 // Use PM2 (npm) to run the service in the background...
-// Use 'node run tsc' for compiler...
+// Use 'npm run tsc' for compiler...
 // Use 'nodemon .' for server...
 //
 
@@ -79,16 +79,17 @@ client.on('interactionCreate', async (interaction) => {
     } else if (commandName === 'play') {
         const video = options.getString('video')!
 
-        // Checking if the message author is in a voice channel.
-        if (!interaction.member.voice.channel) return interaction.reply("You must be in a voice channel.");
-        // Checking if the bot is in a voice channel.
-        if (interaction.guild.me.voice.channel) return interaction.reply("I'm already playing.");
-        
-        // Joining the channel and creating a VoiceConnection.
-        interaction.member.voice.channel.join().then(VoiceConnection => {
-            // Playing the music, and, on finish, disconnecting the bot.
-            VoiceConnection.play("StillDRE.mp3").on("finish", () => VoiceConnection.disconnect());
-        })
+        if (video.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g)) {
+            interaction.reply({
+                content: `Using valid direct URL...`
+            })
+        } else {
+
+
+            interaction.reply({
+                content: `Using YouTube's top query...`
+            })
+        }
 
         interaction.reply({
             content: `Playing ${video} now...`

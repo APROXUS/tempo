@@ -1,8 +1,9 @@
 "use strict";
+//
 // Use PM2 (npm) to run the service in the background...
-// Use 'tsc init' to initalize compiler...
 // Use 'npm run tsc' for compiler...
 // Use 'nodemon .' for server...
+//
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
@@ -62,9 +63,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+// Imports
 var discord_js_1 = __importStar(require("discord.js"));
 var dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
+// Variables
+var guildid = '779283948059623455';
+var songext = '.m4a';
+var songcur = '';
+// Main Thread
 var client = new discord_js_1.default.Client({
     intents: [
         discord_js_1.Intents.FLAGS.GUILDS,
@@ -75,7 +82,6 @@ var client = new discord_js_1.default.Client({
 client.on('ready', function () {
     var _a;
     console.log('(STANDBY) The bot is ready...');
-    var guildid = '779283948059623455';
     var guild = client.guilds.cache.get(guildid);
     var commands;
     if (guild) {
@@ -124,6 +130,16 @@ client.on('interactionCreate', function (interaction) { return __awaiter(void 0,
         }
         else if (commandName === 'play') {
             video = options.getString('video');
+            if (video.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g)) {
+                interaction.reply({
+                    content: "Using valid direct URL..."
+                });
+            }
+            else {
+                interaction.reply({
+                    content: "Using YouTube's top query..."
+                });
+            }
             interaction.reply({
                 content: "Playing " + video + " now..."
             });

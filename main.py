@@ -14,9 +14,11 @@ from discord.ext import commands
 
 client = commands.Bot(command_prefix="!")
 
+
 ####################
 # ACTION FUNCTIONS #
 ####################
+
 
 async def actionplay(ctx, args):
     if ctx.author.voice is not None:
@@ -78,9 +80,18 @@ def isconnected(ctx):
     voice_client = get(ctx.bot.voice_clients, guild=ctx.guild)
     return voice_client
 
+
+def readconfig():
+    file = open(".confg", "r")
+    lines = file.read().splitlines()
+    file.close()
+    return lines
+
+
 ###################
 # COMMAND HANDLER #
 ###################
+
 
 @client.command()
 async def ping(ctx):
@@ -96,13 +107,16 @@ async def echo(ctx, *args):
 async def play(ctx, *args):
     await actionplay(ctx, args)
 
+
 @client.command()
 async def p(ctx, *args):
     await actionplay(ctx, args)
 
+
 @client.command()
 async def pause(ctx):
     await actionpause(ctx)
+
 
 @client.command()
 async def stop(ctx):
@@ -113,6 +127,7 @@ async def stop(ctx):
 async def resume(ctx):
     await actionresume(ctx)
 
+
 @client.command()
 async def r(ctx):
     await actionresume(ctx)
@@ -122,17 +137,20 @@ async def r(ctx):
 async def leave(ctx):
     await actionleave(ctx)
 
+
 @client.command()
 async def l(ctx):
     await actionleave(ctx)
 
+
 @client.command()
 async def disconnect(ctx):
     await actionleave(ctx)
+
 
 @client.command()
 async def dc(ctx):
     await actionleave(ctx)
 
 
-client.run("OTA1MzgxOTk3NjU0OTgyNjc4.YYJQsQ.Ot_xz5O3y8kezG67rzc2K2bxfVE")
+client.run(readconfig()[0])

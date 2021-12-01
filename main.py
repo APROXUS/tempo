@@ -150,7 +150,7 @@ async def player(ctx):
 def getvideo(ctx, url):
     millis = time.time() * 1000
     try:
-        if platform.system() is "Linux":
+        if platform.system() == "Linux":
             console = (os.popen("python3 youtube -o media/" + str(millis) + ".mp3 -x --audio-format mp3 " + url).read())
             return ["media/" + str(millis) + ".mp3", console]
         else:

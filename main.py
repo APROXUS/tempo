@@ -8,6 +8,7 @@ import time
 import urllib
 import asyncio
 import discord
+import platform
 import validators
 
 from discord.utils import get
@@ -149,8 +150,12 @@ async def player(ctx):
 def getvideo(ctx, url):
     millis = time.time() * 1000
     try:
-        console = (os.popen("youtube -o media/" + str(millis) + ".mp3 -x --audio-format mp3 " + url).read())
-        return ["media/" + str(millis) + ".mp3", console]
+        if platform.system() is "Linux":
+            console = (os.popen("python3 youtube -o media/" + str(millis) + ".mp3 -x --audio-format mp3 " + url).read())
+            return ["media/" + str(millis) + ".mp3", console]
+        else:
+            console = (os.popen("youtube -o media/" + str(millis) + ".mp3 -x --audio-format mp3 " + url).read())
+            return ["media/" + str(millis) + ".mp3", console]
     except:
         ctx.send("[Error]: Could not retrieve track...")
 

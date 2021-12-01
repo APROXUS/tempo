@@ -147,3 +147,5 @@ cython_debug/
 # End of https://www.toptal.com/developers/gitignore/api/python
 .idea/misc.xml
 .idea/tempo-bot.iml
+.idea/misc.xml
+.idea/tempo-bot.iml

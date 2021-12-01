@@ -116,6 +116,8 @@ async def actionskip(ctx):
 
 
 async def skipper(ctx):
+    queue.pop(0)
+    await player(ctx)
     await ctx.send("Skipping the current song...")
 
 
@@ -128,8 +130,7 @@ async def player(ctx):
 
         def loop(ctx, queue):
             if looping:
-                ctx.voice_client.play(discord.FFmpegPCMAudio(queue[0]),
-                                      after=lambda e: asyncio.run_coroutine_threadsafe(loop(ctx, queue), client.loop))
+                ctx.voice_client.play(discord.FFmpegPCMAudio(queue[0]), after=lambda e: asyncio.run_coroutine_threadsafe(loop(ctx, queue), client.loop))
             else:
                 queue.pop(0)
                 if len(queue) < 1:

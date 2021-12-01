@@ -1,0 +1,25 @@
+Follow steps to activate as service:
+
+   1. sudo cp tempo.service /etc/systemd/system/tempo.service
+   2. sudo systemctl daemon-reload
+   3. sudo systemctl enable tempo
+
+Finally, Start the server:
+
+   4. sudo systemctl start tempo
+
+Check current status:
+
+   5. sudo systemctl status tempo
+
+Stop the server:
+
+   6. sudo systemctl stop tempo
+
+Restart the server:
+
+   7. sudo systemctl restart tempo
+
+View the server logs:
+
+   8. journalctl -f -u tempo

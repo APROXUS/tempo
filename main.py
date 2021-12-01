@@ -31,27 +31,27 @@ async def actionplay(ctx, args):
         if args:
             url = str(args[0])
             if validators.url(url):
-                await ctx.send("Retrieving video file...")
+                await ctx.send("[Player]: Retrieving track...")
                 file = getvideo(ctx, url)
                 if file:
                     if len(queue) < 1:
                         queue.append(file[0])
-                        await ctx.send("Playing audio file...")
+                        await ctx.send("[Player]: Playing track...")
                         await player(ctx)
                     else:
                         queue.append(file[0])
-                        await ctx.send("Audio added to queue...")
-                        await ctx.send("The queue has " + str(len(queue)) + " tracks...")
+                        await ctx.send("[Queue]: Track added...")
+                        await ctx.send("[Queue]: Playing " + str(len(queue)) + " tracks...")
             else:
-                await ctx.send("Searching query...")
+                await ctx.send("[Search]: Querying YouTube...")
                 html = urllib.request.urlopen("https://www.youtube.com/results?search_query=" + "+".join(args[0]))
                 videos = re.findall(r"watch\?v=(\S{11})", html.read().decode())
-                await ctx.send("Found video: https://www.youtube.com/watch?v=" + videos[0])
+                await ctx.send("[Search]: Found https://www.youtube.com/watch?v=" + videos[0])
                 await actionplay(ctx, ["https://www.youtube.com/watch?v=" + videos[0]])
         else:
-            await ctx.send("You must enter a valid URL or search query...")
+            await ctx.send("[Error]: Must have a URL or search arguments...")
     else:
-        await ctx.send("You must be connect to a voice channel...")
+        await ctx.send("[Error]: Must be connect to a voice channel...")
 
 
 async def actionpause(ctx):
@@ -59,9 +59,9 @@ async def actionpause(ctx):
         if ctx.voice_client.is_playing():
             ctx.voice_client.pause()
         else:
-            await ctx.send("The bot is not currently playing...")
+            await ctx.send("[Error]: Not currently playing...")
     else:
-        await ctx.send("The bot is not currently connected...")
+        await ctx.send("[Error]: The bot is not connected...")
 
 
 async def actionresume(ctx):
@@ -69,33 +69,35 @@ async def actionresume(ctx):
         if ctx.voice_client.is_paused():
             ctx.voice_client.resume()
         else:
-            await ctx.send("The bot is not currently paused...")
+            await ctx.send("[Error]: Not currently paused...")
     else:
-        await ctx.send("The bot is not currently connected...")
+        await ctx.send("[Error]: The bot is not connected...")
 
 
 async def actionjoin(ctx):
     if isconnected(ctx):
-        await ctx.send("The bot is already connected...")
+        await ctx.send("[Error]: The bot is already connected...")
     else:
         await ctx.author.voice.channel.connect()
 
 
 async def actionleave(ctx):
     if isconnected(ctx):
+        global queue
+        queue = []
         await ctx.voice_client.disconnect()
     else:
-        await ctx.send("The bot is not currently connected...")
+        await ctx.send("[Error]: The bot is not connected...")
 
 
 async def actionloop(ctx):
     global looping
     if looping:
         looping = False
-        await ctx.send("The bot will not loop audio...")
+        await ctx.send("[Player]: No longer looping tracks...")
     else:
         looping = True
-        await ctx.send("The bot will loop audio...")
+        await ctx.send("[Player]: Now looping tracks...")
 
 
 async def actionskip(ctx):
@@ -105,20 +107,20 @@ async def actionskip(ctx):
             if len(queue) > 0:
                 await skipper(ctx)
             else:
-                await ctx.send("There is no queue currently...")
+                await ctx.send("[Error]: There is no active queue...")
         else:
             if len(queue) > 0:
                 await skipper(ctx)
             else:
-                await ctx.send("The bot is not currently playing...")
+                await ctx.send("[Error]: The bot is not playing...")
     else:
-        await ctx.send("The bot is not currently connected...")
+        await ctx.send("[Error]: The bot is not connected...")
 
 
 async def skipper(ctx):
     queue.pop(0)
     await player(ctx)
-    await ctx.send("Skipping the current song...")
+    await ctx.send("[Player]: Skipping current song...")
 
 
 async def player(ctx):
@@ -134,10 +136,10 @@ async def player(ctx):
             else:
                 queue.pop(0)
                 if len(queue) < 1:
-                    asyncio.run_coroutine_threadsafe(ctx.send("The que has been completed..."), client.loop)
+                    asyncio.run_coroutine_threadsafe(ctx.send("[Player]: Queue completed..."), client.loop)
                 else:
                     asyncio.run_coroutine_threadsafe(
-                        ctx.send("Playing next song (" + str(len(queue)) + " tracks left in queue)..."), client.loop)
+                        ctx.send("[Player]: Playing next track (" + str(len(queue)) + " tracks in queue)..."), client.loop)
                     asyncio.run_coroutine_threadsafe(player(ctx), client.loop)
 
         ctx.voice_client.play(discord.FFmpegPCMAudio(queue[0]),
@@ -150,7 +152,7 @@ def getvideo(ctx, url):
         console = (os.popen("youtube -o media/" + str(millis) + ".mp3 -x --audio-format mp3 " + url).read())
         return ["media/" + str(millis) + ".mp3", console]
     except:
-        ctx.send("The video could not be downloaded...")
+        ctx.send("[Error]: Could not retrieve track...")
 
 
 def isconnected(ctx):

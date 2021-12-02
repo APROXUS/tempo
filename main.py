@@ -32,17 +32,20 @@ async def actionplay(ctx, args):
         if args:
             url = str(args[0])
             if validators.url(url):
-                await ctx.send("[Player]: Retrieving track...")
-                file = getvideo(ctx, url)
-                if file:
-                    if len(queue) < 1:
-                        queue.append(file[0])
-                        await ctx.send("[Player]: Playing track...")
-                        await player(ctx)
-                    else:
-                        queue.append(file[0])
-                        await ctx.send("[Queue]: Track added...")
-                        await ctx.send("[Queue]: Playing " + str(len(queue)) + " tracks...")
+                if re.findall(r"playlist\?list=(\S{34})", url):
+                    await getplaylist(ctx, re.findall(r"playlist\?list=(\S{34})", url)[0])
+                else:
+                    await ctx.send("[Player]: Retrieving track...")
+                    file = getvideo(ctx, url)
+                    if file:
+                        if len(queue) < 1:
+                            queue.append(file[0])
+                            await ctx.send("[Player]: Playing track...")
+                            await player(ctx)
+                        else:
+                            queue.append(file[0])
+                            await ctx.send("[Queue]: Track added...")
+                            await ctx.send("[Queue]: Playing " + str(len(queue)) + " tracks...")
             else:
                 await ctx.send("[Search]: Querying YouTube...")
                 html = urllib.request.urlopen("https://www.youtube.com/results?search_query=" + "+".join(args[0]))
@@ -158,6 +161,16 @@ def getvideo(ctx, url):
             return ["media/" + str(millis) + ".mp3", console]
     except:
         ctx.send("[Error]: Could not retrieve track...")
+
+
+async def getplaylist(ctx, arg):
+    await ctx.send("[Search]: Detected playlist...")
+    html = urllib.request.urlopen("https://www.youtube.com/playlist?list=" + arg)
+    videos = re.findall(r"watch\?v=(\S{11})", html.read().decode())
+    videos = list(dict.fromkeys(videos))
+    await ctx.send("[Search]: Queueing all " + str(len(videos)) + " tracks...")
+    for i in range(len(videos)):
+        await actionplay(ctx, ["https://www.youtube.com/watch?v=" + videos[i]])
 
 
 def isconnected(ctx):

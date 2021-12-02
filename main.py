@@ -8,7 +8,6 @@ import time
 import urllib
 import asyncio
 import discord
-import platform
 import validators
 
 from discord.utils import get

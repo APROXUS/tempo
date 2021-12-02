@@ -168,12 +168,8 @@ async def player(ctx):
 def getvideo(ctx, url):
     millis = time.time() * 1000
     try:
-        if platform.system() == "Linux":
-            console = (os.popen("python3 youtube -o media/" + str(millis) + ".mp3 -x --audio-format mp3 " + url).read())
-            return ["media/" + str(millis) + ".mp3", console]
-        else:
-            console = (os.popen("youtube -o media/" + str(millis) + ".mp3 -x --audio-format mp3 " + url).read())
-            return ["media/" + str(millis) + ".mp3", console]
+        console = (os.popen("yt-dlp -o media/" + str(millis) + ".mp3 -x --audio-format mp3 " + url).read())
+        return ["media/" + str(millis) + ".mp3", console]
     except:
         ctx.send("[Error]: Could not retrieve track...")
 

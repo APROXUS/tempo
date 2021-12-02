@@ -48,7 +48,8 @@ async def actionplay(ctx, args):
                             await ctx.send("[Queue]: Playing " + str(len(queue)) + " tracks...")
             else:
                 await ctx.send("[Search]: Querying YouTube...")
-                html = urllib.request.urlopen("https://www.youtube.com/results?search_query=" + "+".join(args[0]))
+                query = "https://www.youtube.com/results?search_query=" + "+".join(args)
+                html = urllib.request.urlopen(query)
                 videos = re.findall(r"watch\?v=(\S{11})", html.read().decode())
                 await ctx.send("[Search]: Found https://www.youtube.com/watch?v=" + videos[0])
                 await actionplay(ctx, ["https://www.youtube.com/watch?v=" + videos[0]])
@@ -104,6 +105,20 @@ async def actionloop(ctx):
         await ctx.send("[Player]: Now looping tracks...")
 
 
+async def actionremove(ctx, arg):
+    if arg.isdigit():
+        if int(arg) <= len(queue):
+            if int(arg) == 1:
+                await actionskip(ctx)
+            else:
+                queue.pop(int(arg)-1)
+                await ctx.send("[Queue]: Removed track " + arg + "...")
+        else:
+            await ctx.send("[Error]: Track number does not exist...")
+    else:
+        await ctx.send("[Error]: Argument is not an integer...")
+
+
 async def actionskip(ctx):
     if isconnected(ctx):
         if ctx.voice_client.is_playing():
@@ -123,8 +138,8 @@ async def actionskip(ctx):
 
 async def skipper(ctx):
     queue.pop(0)
+    await ctx.send("[Player]: Skipping track (" + str(len(queue)) + " tracks in queue)...")
     await player(ctx)
-    await ctx.send("[Player]: Skipping current song...")
 
 
 async def player(ctx):
@@ -189,6 +204,8 @@ def readconfig():
 # COMMAND HANDLER #
 ###################
 
+client.remove_command('help')
+
 @client.command()
 async def ping(ctx):
     await ctx.send("Pong!")
@@ -198,6 +215,10 @@ async def ping(ctx):
 async def echo(ctx, *args):
     await ctx.send(" ".join(args))
 
+
+@client.command()
+async def help(ctx):
+    await ctx.send("No!")
 
 @client.command()
 async def play(ctx, *args):
@@ -277,6 +298,26 @@ async def s(ctx):
 @client.command()
 async def fs(ctx):
     await actionskip(ctx)
+
+
+@client.command()
+async def remove(ctx, arg):
+    await actionremove(ctx, arg)
+
+
+@client.command()
+async def rm(ctx, arg):
+    await actionremove(ctx, arg)
+
+
+@client.command()
+async def delete(ctx, arg):
+    await actionremove(ctx, arg)
+
+
+@client.command()
+async def d(ctx, arg):
+    await actionremove(ctx, arg)
 
 
 client.run(readconfig()[0])

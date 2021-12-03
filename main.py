@@ -152,6 +152,7 @@ async def player(ctx):
             if looping:
                 ctx.voice_client.play(discord.FFmpegPCMAudio(queue[0]), after=lambda e: asyncio.run_coroutine_threadsafe(loop(ctx, queue), client.loop))
             else:
+                remove(queue[0])
                 queue.pop(0)
                 if len(queue) < 1:
                     asyncio.run_coroutine_threadsafe(ctx.send("[Player]: Queue completed..."), client.loop)

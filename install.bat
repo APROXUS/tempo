@@ -9,7 +9,7 @@ if errorlevel 1 goto NoPython
 echo.
 echo Python is installed
 
-py -m pip install urllib3 asyncio yt-dlp discord.py[voice] validators
+py -m pip install urllib3 asyncio yt-dlp discord.py[voice] validators hurry.filesize
 
 echo.
 echo Dependencies successfully installed...

@@ -1,10 +1,10 @@
 #######################
 # IMPORTS AND GLOBALS #
 #######################
-
 import os
 import re
 import time
+import glob
 import urllib
 import asyncio
 import discord
@@ -166,10 +166,21 @@ async def player(ctx):
 
 
 def getvideo(ctx, url):
-    millis = time.time() * 1000
+    file = re.findall(r"watch\?v=(\S{11})", url)
+
+    if len(file) > 0:
+        file = file[0]
+    else:
+        file = time.time() * 1000
+
+    path = "media/"
+    exists = glob.glob(path + file + ".mp3", recursive=True)
+    if len(exists) > 0:
+        return ["media/" + str(file) + ".mp3", "File already cached locally..."]
+
     try:
-        console = (os.popen("yt-dlp -o media/" + str(millis) + ".mp3 -x --audio-format mp3 " + url).read())
-        return ["media/" + str(millis) + ".mp3", console]
+        console = (os.popen("yt-dlp -o media/" + str(file) + ".mp3 -x --audio-format mp3 " + url).read())
+        return ["media/" + str(file) + ".mp3", console]
     except:
         ctx.send("[Error]: Could not retrieve track...")
 
@@ -314,6 +325,22 @@ async def delete(ctx, arg):
 @client.command()
 async def d(ctx, arg):
     await actionremove(ctx, arg)
+
+@client.command()
+async def cache(ctx, arg):
+    await actioncache(ctx)
+
+@client.command()
+async def cached(ctx, arg):
+    await actioncache(ctx)
+
+@client.command()
+async def data(ctx, arg):
+    await actioncache(ctx)
+
+@client.command()
+async def purge(ctx, arg):
+    await actionpurge(ctx)
 
 
 client.run(readconfig()[0])

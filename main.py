@@ -7,15 +7,17 @@ import time
 import glob
 import urllib
 import asyncio
+
 import discord
 import validators
 
+from pathlib import Path
 from discord.utils import get
+from hurry.filesize import size
 from discord.ext import commands
 
-import tracemalloc
-
-tracemalloc.start()
+# import tracemalloc
+# tracemalloc.start()
 
 queue = []
 looping = False
@@ -133,6 +135,20 @@ async def actionskip(ctx):
                 await ctx.send("[Error]: The bot is not playing...")
     else:
         await ctx.send("[Error]: The bot is not connected...")
+
+
+async def actioncache(ctx):
+    directory = 'media/'
+    bees = sum(p.stat().st_size for p in Path(directory).rglob('*'))
+    sees = size(bees)
+    await ctx.send("[Player]: Cached about " + sees + "b of audio...")
+
+async def actionpurge(ctx):
+    directory = 'media/'
+    listed = glob.glob(os.path.join(directory, "*"))
+    for f in listed:
+        os.remove(f)
+    await ctx.send("[Player]: Cache has been fully purged...")
 
 
 async def skipper(ctx):
@@ -327,19 +343,19 @@ async def d(ctx, arg):
     await actionremove(ctx, arg)
 
 @client.command()
-async def cache(ctx, arg):
+async def cache(ctx):
     await actioncache(ctx)
 
 @client.command()
-async def cached(ctx, arg):
+async def cached(ctx):
     await actioncache(ctx)
 
 @client.command()
-async def data(ctx, arg):
+async def data(ctx):
     await actioncache(ctx)
 
 @client.command()
-async def purge(ctx, arg):
+async def purge(ctx):
     await actionpurge(ctx)
 
 

@@ -1,25 +1,34 @@
 Follow steps to activate as service:
 
-    1. sudo cp tempo.service /etc/systemd/system/tempo.service
-    2. sudo systemctl daemon-reload
-    3. sudo systemctl enable tempo
+    1.	sudo cp tempo.service /etc/systemd/system/tempo.service
+		sudo cp lavalink.service /etc/systemd/system/lavalink.service
+	   
+    2.	sudo systemctl daemon-reload
+	   
+    3.	sudo systemctl enable tempo
+		sudo systemctl enable lavalink
 
 Finally, Start the server:
 
-    4. sudo systemctl start tempo
+    4.	sudo systemctl start tempo
+		sudo systemctl start lavalink
 
 Check current status:
 
-    5. sudo systemctl status tempo
+    5.	sudo systemctl status tempo
+		sudo systemctl status lavalink
 
 Stop the server:
 
-    6. sudo systemctl stop tempo
+    6.	sudo systemctl stop tempo
+		sudo systemctl stop lavalink
 
 Restart the server:
 
-    7. sudo systemctl restart tempo
+    7.	sudo systemctl restart tempo
+		sudo systemctl restart lavalink
 
 View the server logs:
 
-    8. journalctl -f -u tempo
+    8.	journalctl -f -u tempo
+		journalctl -f -u lavalink

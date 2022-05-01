@@ -1,11 +1,21 @@
+reset
+echo "Updating package manager..."
 sudo apt-get update
-sudo apt-get install python3 python3-pip ffmpeg -y
-sudo python3 -m pip install yt-dlp
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-nvm --version
-nvm install --lts
-node --version
-npm install
 
 reset
-echo "Dependencies intstalled successfully..."
+echo "Installing .NET Core 6 via APT..."
+wget https://packages.microsoft.com/config/ubuntu/21.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+sudo dpkg -i packages-microsoft-prod.deb
+rm packages-microsoft-prod.deb
+sudo apt-get update
+sudo apt-get install -y apt-transport-https
+sudo apt-get update
+sudo apt-get install -y dotnet-runtime-6.0
+
+reset
+echo "Installing JDK 13 via APT..."
+sudo apt-get update
+sudo apt-get install openjdk-17-jdk
+
+reset
+echo "Installation completed..."

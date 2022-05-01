@@ -1,0 +1,16 @@
+[Unit]
+Description=Discord bot, Tempo, as a service...
+After=network-online.target
+
+[Service]
+User=%u
+TimeoutStartSec=0
+Type=simple
+KillMode=process
+WorkingDirectory=%h/tempo/prod
+ExecStart=/bin/java -jar Lavalink.jar
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

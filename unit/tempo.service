@@ -3,12 +3,12 @@ Description=Discord bot, Tempo, as a service...
 After=network-online.target
 
 [Service]
-User=albie
+User=%u
 TimeoutStartSec=0
 Type=simple
 KillMode=process
-WorkingDirectory=/home/albie/tempo
-ExecStart=/bin/python3 /home/albie/tempo/main.py
+WorkingDirectory=%h/tempo
+ExecStart=/bin/node %h/tempo/index.js
 Restart=always
 RestartSec=2
 

@@ -3,12 +3,12 @@ Description=Discord bot, Tempo, as a service...
 After=network-online.target
 
 [Service]
-User=%u
+User=albie
 TimeoutStartSec=0
 Type=simple
 KillMode=process
-WorkingDirectory=%h/tempo/prod
-ExecStart=/bin/java -jar Lavalink.jar
+WorkingDirectory=/home/albie/tempo/prod
+ExecStart=/bin/java -jar /home/albie/tempo/prod/Lavalink.jar
 Restart=always
 RestartSec=10
 

@@ -3,15 +3,15 @@ Description=Discord bot, Tempo, as a service...
 After=network-online.target
 
 [Service]
-User=%u
+User=albie
 TimeoutStartSec=0
 Type=simple
 KillMode=process
-WorkingDirectory=%h/tempo/prod
-ExecStart=/usr/bin/dotnet %h/tempo/prod/Tempo.dll
+WorkingDirectory=/home/albie/tempo/prod
+ExecStart=/usr/bin/dotnet /home/albie/tempo/prod/Tempo.dll
 Restart=always
 RestartSec=10
-Environment=ASPNETCORE_ENVIRONMENT=Production
+Environment=DOTNET_ROOT=/usr/lib64/dotnet
 
 [Install]
 WantedBy=multi-user.target

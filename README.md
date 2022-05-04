@@ -7,7 +7,7 @@ A simple Discord bot that plays online videos (YouTube and most streaming platfo
 0. Working directory (default for configurations): /home/*user*/tempo/prod/
 
 1. Create ".env" file with the properties:
-    - TOKEN=*Found in "Bot" section of Discord Developers website*
+    - TOKEN=XXXXXXXXXXXXXXXXXXXXXXXXX ***(Found in "Bot" section of Discord Developers website)****
 
 2. Run "install.sh" bash script (can be interpreted for other systems - made for Ubuntu).
 

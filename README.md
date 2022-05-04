@@ -13,6 +13,6 @@ Tempo will work by initially downloading the audio of a YouTube (or other platfo
 
 2. Run "install.sh" bash script (can be interpreted for other systems - made for Ubuntu).
 
-3. If "install.sh" cannot create systemd services, see unit/README for information on creating services manually.
+3. Finally create the service files, see unit/README for more information...
 
 *If you want to use with Windows, install .NET 6 and JDK 13. Run both prod/Lavalink.jar and prod/Tempo.exe concurrently.

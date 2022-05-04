@@ -1,5 +1,5 @@
 [Unit]
-Description=Discord bot, Tempo, as a service...
+Description=Tempo Bot, tempo service config...
 After=network-online.target
 
 [Service]
@@ -7,8 +7,8 @@ User=albie
 TimeoutStartSec=0
 Type=simple
 KillMode=process
-WorkingDirectory=/home/albie/tempo/prod
-ExecStart=/usr/bin/dotnet /home/albie/tempo/prod/Tempo.dll
+WorkingDirectory=/home/albie/tempo/prod/
+ExecStart=/usr/bin/dotnet Tempo.dll
 Restart=always
 RestartSec=10
 Environment=DOTNET_ROOT=/usr/lib64/dotnet

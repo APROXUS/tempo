@@ -1,6 +1,6 @@
 # Tempo (Discord Bot)
 
-A simple Discord bot that plays online videos (YouTube and most streaming platforms) as audio in voice chat.
+KPNC Technology: A simple Discord bot that plays online videos (YouTube and most streaming platforms) as audio in voice chat.
 
 # Installation
 

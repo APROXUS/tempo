@@ -1,4 +1,4 @@
-# Conducter (Discord Bot)
+# Conducter
 
 *(Discord, Discord.NET, DSharpPlus, Lavalink)*
 

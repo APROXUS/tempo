@@ -1,6 +1,8 @@
-# Tempo (Discord Bot)
+# Conducter (Discord Bot)
 
-KPNC Technology: A simple Discord bot that plays online videos (YouTube and most streaming platforms) as audio in voice chat.
+*(Discord, Discord.NET, DSharpPlus, Lavalink)*
+
+KPNC Technology: Conducter: A simple Discord bot that plays online videos (YouTube and most streaming platforms) as audio in voice chat.
 
 # Installation
 

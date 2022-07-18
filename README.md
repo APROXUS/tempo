@@ -1,6 +1,6 @@
 # Conducter
 
-*(Discord, Discord.NET, DSharpPlus, Lavalink)*
+*(Discord, Discord.JS, Lavalink)*
 
 KPNC Technology: Conducter: A simple Discord bot that plays online videos (YouTube and most streaming platforms) as audio in voice chat.
 

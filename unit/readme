@@ -1,0 +1,58 @@
+Follow this guide to properly setup the Conducter services for linux...
+
+[Specify the install directory and service user]:
+* Change the "User" to an admin and "WorkingDirectory" to the location of conducter folder...
+
+> nano conducter.service
+> nano lavalink.service
+
+
+
+[Follow steps to activate as service]:
+
+1. sudo bash ../service.sh
+	
+   [OR]
+
+1. sudo cp conducter.service /etc/systemd/system/conducter.service
+   sudo cp lavalink.service /etc/systemd/system/lavalink.service
+	   
+2. sudo systemctl daemon-reload
+	   
+3. sudo systemctl enable conducter
+   sudo systemctl enable lavalink
+
+
+
+[Finally, Start the server]:
+
+sudo systemctl start conducter
+sudo systemctl start lavalink
+
+
+
+[Check current status]:
+
+sudo systemctl status conducter
+sudo systemctl status lavalink
+
+
+
+[Stop the server]:
+
+sudo systemctl stop conducter
+sudo systemctl stop lavalink
+
+
+
+[Restart the server]:
+
+sudo systemctl restart conducter
+sudo systemctl restart lavalink
+
+
+
+[View the server logs]:
+
+journalctl -f -u conducter
+journalctl -f -u lavalink

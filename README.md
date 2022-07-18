@@ -6,13 +6,20 @@ KPNC Technology: Conducter: A simple Discord bot that plays online videos (YouTu
 
 # Installation
 
-0. Working directory (default for configurations): /home/*user*/tempo/prod/
+*For installation on a linux (Debian based) server...*
 
-1. Create ".env" file with the properties:
-    - TOKEN=XXXXXXXXXXXXXXXXXXXXXXXXX ***(Found in "Bot" section of Discord Developers website)****
+1. Install necessary base dependencies:
+	- Run "sudo bash install.sh"
+	
+1. Duplicate or rename ".env.example" to ".env" and edit the following properties:
+    - TOKEN				<Change to your Discord Bot token from the Discord Developers website...>
+	- PREFIX			<Change to any prefered string to activate the bot like "!", "~", "#", "$", "bot>", etc...>
+	- OWNER_ID			<Change to your own Discord ID (right click your name in Discord app)...>
+	- LAVA_HOST			<Change to a public Lavalink server host name if you do not want to self-host...>
+	- LAVA_PORT			<Change to a public Lavalink server port if you do not want to self-host...>
+	- LAVA_PASS			<Change to a public Lavalink server password if you do not want to self-host...>
+	- ENABLE_SPOTIFY	<Change to "true" if you want to stream from Spotify...>
+	- SPOTIFY_ID		<Change to your personal Spotify ID if you enabled Spotify support...>
+	- SPOTIFY_SECRET	<Change to your personal Spotify secret if you enabled Spotify support...>
 
-2. Run "install.sh" bash script (can be interpreted for other systems - made for Ubuntu).
-
-3. Finally create the service files, see unit/README for more information...
-
-*If you want to use with Windows, install .NET 6 and JDK 13. Run both prod/Lavalink.jar and prod/Tempo.exe concurrently.
+3. Finally create the service files, see unit/readme for more information...

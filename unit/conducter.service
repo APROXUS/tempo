@@ -1,0 +1,17 @@
+[Unit]
+Description=Conducter Bot, Conducter service config...
+After=network-online.target
+
+[Service]
+User=albie
+TimeoutStartSec=0
+Type=simple
+KillMode=process
+WorkingDirectory=/home/albie/conducter/
+ExecStart=/usr/bin/node index.js
+Restart=always
+RestartSec=10
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target

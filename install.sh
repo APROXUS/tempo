@@ -1,21 +1,24 @@
 reset
 echo "Updating package manager..."
-sudo apt-get update
+sudo apt update
 
 reset
-echo "Installing .NET Core 6 via APT..."
-wget https://packages.microsoft.com/config/ubuntu/21.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
-sudo dpkg -i packages-microsoft-prod.deb
-rm packages-microsoft-prod.deb
-sudo apt-get update
-sudo apt-get install -y apt-transport-https
-sudo apt-get update
-sudo apt-get install -y dotnet-runtime-6.0
+echo "Installing Node.js/NPM via APT..."
+sudo apt install -y nodejs
+sudo apt install -y npm
 
 reset
 echo "Installing JDK 13 via APT..."
-sudo apt-get update
-sudo apt-get install openjdk-17-jdk
+sudo apt install -y openjdk-18-jdk
+
+reset
+echo "Updating systems..."
+sudo apt update
+sudo apt upgrade -y
+
+reset
+echo "Installing Node dependencies..."
+sudo npm i --production
 
 reset
 echo "Installation completed..."

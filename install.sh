@@ -1,24 +1,14 @@
-reset
-echo "[Updating package manager]"
+echo "Updating Package Manager..."
 sudo apt update
 
-reset
-echo "[Installing Node.js/NPM via APT]"
+echo "Installing Node.js/NPM..."
 sudo apt install -y nodejs
 sudo apt install -y npm
 
-reset
-echo "[Installing JDK 13 via APT]"
-sudo apt install -y openjdk-18-jdk
-
-reset
-echo "U[pdating systems]"
-sudo apt update
+echo "Updating Systems..."
 sudo apt upgrade -y
 
-reset
-echo "[Installing Node dependencies]"
+echo "Installing Node Dependencies..."
 sudo npm i --production
 
-reset
-echo "[Installation completed]"
+echo "Installation Completed..."

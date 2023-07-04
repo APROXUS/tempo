@@ -1,6 +1,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/node,visualstudio,visualstudiocode,python,dotnetcore,dotenv
 # Edit at https://www.toptal.com/developers/gitignore?templates=node,visualstudio,visualstudiocode,python,dotnetcore,dotenv
 
+### conducter ###
+music/*
+
 ### dotenv ###
 .env
 

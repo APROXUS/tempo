@@ -7,7 +7,7 @@ Follow this guide to properly setup the Conducter services for linux...
 
 
 
-[Follow steps to activate as service]:
+[Create as a service]:
 
 1. sudo bash ../service.sh
 	
@@ -21,7 +21,7 @@ Follow this guide to properly setup the Conducter services for linux...
 
 
 
-[Finally, Start the server]:
+[Start the server]:
 
 sudo systemctl start conducter
 

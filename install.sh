@@ -10,6 +10,6 @@ echo "Updating Systems..."
 sudo apt upgrade -y
 
 echo "Installing Node Dependencies..."
-sudo npm i --production
+npm i --production
 
 echo "Installation Completed..."

@@ -1,4 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+const { next } = require('../controller');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -6,8 +7,6 @@ module.exports = {
         .setDescription('Skips the current song...'),
 
     async execute(interaction) {
-        // Start next song, delete last song
-
         const embed = new EmbedBuilder()
             .setTitle('⏭️  Skipping song...')
             .setColor(0x8617FE)
@@ -15,5 +14,7 @@ module.exports = {
         await interaction.reply({
             embeds: [embed]
         });
+
+        next(interaction);
     }
 }

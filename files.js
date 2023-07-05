@@ -1,9 +1,9 @@
 const { Collection } = require('discord.js');
-const fs = require("node:fs");
+const { readdirSync } = require('node:fs');
 
 module.exports = {
     getFiles(folder) {
-        const files = fs.readdirSync(folder, {
+        const files = readdirSync(folder, {
             withFileTypes: true
         });
     

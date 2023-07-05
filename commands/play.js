@@ -1,11 +1,9 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
-const { play } = require('../controller');
+const { play, add, queue, last } = require('../controller');
 const { promisify } = require('util');
 
 const exec = promisify(require('node:child_process').exec);
-const readFile = promisify(require('node:fs').readFile);
-const readdir = promisify(require('node:fs').readdir);
-const exists = promisify(require('node:fs').exists);
+const writeFile = promisify(require('node:fs').writeFile);
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -21,8 +19,8 @@ module.exports = {
     async execute(interaction) {
         if (!interaction.member.voice.channel) {
             const embed = new EmbedBuilder()
-            .setTitle('🛑  Please connect to a voice channel...')
-            .setColor(0x8617FE)
+                .setTitle('🛑  Please connect to a voice channel...')
+                .setColor(0x8617FE)
 
             await interaction.reply({
                 embeds: [embed]
@@ -31,9 +29,7 @@ module.exports = {
             return;
         }
 
-        await interaction.deferReply();
-
-        const query = interaction.options.getString('query');
+        add();
 
         let upone;
         if (process.platform === 'win32') {
@@ -44,44 +40,31 @@ module.exports = {
         upone.pop();
 
         const music = `${upone.join('/')}/music/${interaction.guildId}/`;
-        
-        let number = 0;
 
-        if (await exists(music)) {
-            const files = await readdir(music, {
-                withFileTypes: true
-            });
+        await interaction.deferReply();
 
-            if (files) {
-                let order = [];
-                for (const file of files) {
-                    let name = file.name;
-                    order.push(parseInt(name.split('.')[0]));
-                }
-                order = [...new Set(order)]
-        
-                number = parseInt(order.reduce((a, b) => Math.max(a, b), -Infinity)) + 1;
-            }
-        }
+        const query = interaction.options.getString('query');
 
-        const command = `./yt-dlp --quiet --print-json --no-playlist --format 'ba' --default-search 'ytsearch' --output '${music}${number}.webm' '${query}'`;
+        const command = `./yt-dlp --quiet --print-json --no-playlist --format 'ba' --default-search 'ytsearch' --output '${music}%(id)s.webm' '${query}'`;
 
         const shell = ((process.platform === 'win32') ? 'powershell.exe' : '/bin/bash');
 
-        const { stdout } = await exec(command, { shell: shell, cwd: __dirname })
+        const { stdout } = await exec(command, { shell: shell, cwd: __dirname });
+
+        await writeFile(`${music}${last()}.json`, stdout);
 
         const object = JSON.parse(stdout);
 
         const embed = new EmbedBuilder()
-            .setTitle('🎵  Added: ' + object.title)
+            .setTitle(`🎵  ${queue() === 0 ? 'Playing' : 'Added'}: ${object.title}`)
             .setDescription(object.uploader)
             .setThumbnail(object.thumbnail)
             .setColor(0x8617FE)
-
+                
         await interaction.editReply({
             embeds: [embed]
         });
 
-        play(interaction, number);
+        if (queue() === 0) { play(interaction) }
     }
 }

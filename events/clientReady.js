@@ -1,4 +1,4 @@
-const extra = require('fs-extra');
+const { emptyDir } = require('fs-extra');
 
 module.exports = {
     name: 'ready',
@@ -6,6 +6,6 @@ module.exports = {
     async execute(login) {
         console.log(`Logged in as ${login.user.tag}`);
 
-        await extra.emptyDir('music');
+        await emptyDir('music');
     }
 }

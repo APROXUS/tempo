@@ -1,4 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+const { stop } = require('../controller');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -6,8 +7,6 @@ module.exports = {
         .setDescription('Disconnects Conducter and resets audio state...'),
 
     async execute(interaction) {
-        // Stop audio, leave channel, delete guild file
-
         const embed = new EmbedBuilder()
             .setTitle('⏹️  Stopping Conducter...')
             .setColor(0x8617FE)
@@ -15,5 +14,7 @@ module.exports = {
         await interaction.reply({
             embeds: [embed]
         });
+
+        stop(interaction);
     }
 }

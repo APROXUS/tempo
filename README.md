@@ -56,5 +56,6 @@ __*Covering both Linux and Windows environments...*__
 	- /pause: Pauses music playback
 	- /resume: Resumes music playback
 	- /stop: Disconnects the bot and resets audio state
+	- /loop: Toggles looping feature
 	- /about: Displays an overview of Conducter
 	- /ping: Tests your slash command

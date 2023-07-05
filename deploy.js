@@ -1,5 +1,5 @@
-const { REST } = require("@discordjs/rest");
-const { Routes } = require("discord.js");
+const { REST } = require('@discordjs/rest');
+const { Routes } = require('discord.js');
 
 require('dotenv').config();
 const token = process.env.TOKEN;
@@ -17,8 +17,8 @@ for (const file of commandFiles) {
 
 const rest = new REST({ version: '10' }).setToken(token);
 
-// rest.put(Routes.applicationGuildCommands(clientId, guildId), { body: commands })
-//     .then(() => console.log('Registered application commands!'))
-
-rest.put(Routes.applicationCommands(clientId), { body: commands })
+rest.put(Routes.applicationGuildCommands(clientId, guildId), { body: commands })
     .then(() => console.log('Registered application commands!'))
+
+// rest.put(Routes.applicationCommands(clientId), { body: commands })
+//     .then(() => console.log('Registered application commands!'))

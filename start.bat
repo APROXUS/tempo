@@ -1,2 +1,3 @@
+:while
 node index.js
-PAUSE
+goto :while

@@ -52,6 +52,18 @@ module.exports = {
             }
         });
 
+        player.on('error', async () => {
+            const embed = new EmbedBuilder()
+                .setTitle('🛑  Could not play this song — skipping...')
+                .setColor(0x8617FE)
+            
+            await interaction.channel.send({
+                embeds: [embed]
+            });
+
+            next(interaction);
+        });
+
         connection.on(VoiceConnectionStatus.Disconnected, async (oldState, newState) => {
             try {
                 await Promise.race([

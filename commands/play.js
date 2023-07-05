@@ -29,8 +29,6 @@ module.exports = {
             return;
         }
 
-        add();
-
         let upone;
         if (process.platform === 'win32') {
             upone = __dirname.split('\\');
@@ -49,11 +47,26 @@ module.exports = {
 
         const shell = ((process.platform === 'win32') ? 'powershell.exe' : '/bin/bash');
 
-        const { stdout } = await exec(command, { shell: shell, cwd: __dirname });
+        let output;
+        try {
+            output = await exec(command, { shell: shell, cwd: __dirname }).stdout;
+        } catch {
+            const embed = new EmbedBuilder()
+                .setTitle('🛑  Could add this song, try another...')
+                .setColor(0x8617FE)
+            
+            await interaction.editReply({
+                embeds: [embed]
+            });
 
-        await writeFile(`${music}${last()}.json`, stdout);
+            return;
+        }
 
-        const object = JSON.parse(stdout);
+        add();
+
+        await writeFile(`${music}${last()}.json`, output);
+
+        const object = JSON.parse(output);
 
         const embed = new EmbedBuilder()
             .setTitle(`🎵  ${queue() === 0 ? 'Playing' : 'Added'}: ${object.title}`)

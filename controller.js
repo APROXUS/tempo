@@ -61,7 +61,7 @@ module.exports = {
                 embeds: [embed]
             });
 
-            next(interaction);
+            require('./controller').next(interaction);
         });
 
         connection.on(VoiceConnectionStatus.Disconnected, async (oldState, newState) => {

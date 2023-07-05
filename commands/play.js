@@ -49,8 +49,7 @@ module.exports = {
 
         let output;
         try {
-            const { stdout } = await exec(command, { shell: shell, cwd: __dirname });
-            output = stdout;
+            output = await exec(command, { shell: shell, cwd: __dirname }).stdout;
         } catch {
             const embed = new EmbedBuilder()
                 .setTitle('🛑  Could add this song, try another...')

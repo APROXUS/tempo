@@ -41,7 +41,7 @@ module.exports = {
 
         await interaction.deferReply();
 
-        const query = interaction.options.getString('query');
+        const query = interaction.options.getString('query').replace(/('|"|\/|\\)/g, '_');
 
         const command = `./yt-dlp --quiet --print-json --no-playlist --format 'ba' --default-search 'ytsearch' --output '${music}%(id)s.webm' '${query}'`;
 

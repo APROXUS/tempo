@@ -72,7 +72,7 @@ module.exports = {
                 ]);
             } catch (error) {
                 const embed = new EmbedBuilder()
-                    .setTitle('🛑  Please use "/stop" to disconnect Conducter...')
+                    .setTitle('🛑  Please use "/stop" to disconnect Virtuoso...')
                     .setColor(0x8617FE)
                 
                 await interaction.channel.send({
@@ -123,7 +123,7 @@ module.exports = {
             connection.destroy();
         } catch {
             const embed = new EmbedBuilder()
-                .setTitle('🛑  Conducter is not connected...')
+                .setTitle('🛑  Virtuoso is not connected...')
                 .setColor(0x8617FE)
                 
             await interaction.editReply({
@@ -159,7 +159,7 @@ module.exports = {
             player.pause();
         } catch {
             const embed = new EmbedBuilder()
-                .setTitle('🛑  Conducter is not connected...')
+                .setTitle('🛑  Virtuoso is not connected...')
                 .setColor(0x8617FE)
                 
             await interaction.editReply({
@@ -172,7 +172,7 @@ module.exports = {
             player.unpause();
         } catch {
             const embed = new EmbedBuilder()
-                .setTitle('🛑  Conducter is not connected...')
+                .setTitle('🛑  Virtuoso is not connected...')
                 .setColor(0x8617FE)
                 
             await interaction.editReply({

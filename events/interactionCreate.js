@@ -9,18 +9,6 @@ module.exports = {
     async execute(interaction) {
         if(!interaction.isChatInputCommand()) return;
 
-        if(!interaction.guild) {
-            console.log('idiotsdtsd');
-
-            return;
-        }
-
-        if(!interaction.client) {
-            console.log('asdfasdfasdf');
-
-            return;
-        }
-
         let command = client.commands.get(interaction.commandName);
 
         try {

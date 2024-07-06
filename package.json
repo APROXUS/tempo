@@ -1,5 +1,5 @@
 {
-  "name": "conducter",
+  "name": "virtuoso",
   "version": "1.0.0",
   "description": "A simple bot that can play music (YouTube content through link/search) in your Discord channel...",
   "main": "index.js",

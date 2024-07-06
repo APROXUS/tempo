@@ -1,8 +1,8 @@
-# Conducter
+# Virtuoso
 
 *(Node.js, Discord.js, YT-DLP)*
 
-KPNC Technology: Conducter: is a simple Discord music bot that utilizes the popular Discord.js and Youtube-DL projects. Installing your own version of Conducter is easy and only requires that you have an computer and a Discord account.
+KPNC Technology: Virtuoso is a simple music bot for Discord. It utilizes the popular Discord.js and YT-DLP libraries to play YouTube audio in your Discord server. Starting your own instance of Virtuoso is easy and only requires a computer and a Discord account.
 
 # Installation
 
@@ -16,14 +16,17 @@ __*For installation on a Linux (Ubuntu based) servers...*__
 	- CLIENT_ID ( Your bot's Client ID... [Tutorial](https://discordjs.guide/preparations/setting-up-a-bot-application.html) )
 	- GUILD_ID ( Your server's Guild ID... [Tutorial](https://support.discord.com/hc/articles/206346498-Where-can-I-find-my-User-Server-Message-ID) )
 
-- Finally create the service files, see unit/readme for more information...
+- Finally, create the service files (see unit/readme for more information)...
 
 __*For installation on a Windows (10/2019+) servers...*__
 
 - Install [Node.js](https://nodejs.org/en/download) (this will also install [NPM](https://www.npmjs.com/))
 
+- Opening your terminal (command prompt/powershell)
+	- Right-click while holding Shift in the Virtuoso folder and select the option to open a terminal, command prompt, or powershell window in that directory
+
 - Install necessary Node dependencies:
-	- Run "npm i --production"
+	- Run "npm i --production" in the terminal windows
 	
 - Duplicate or rename ".env.example" to ".env" and edit the following properties:
 	- TOKEN ( Your bot's Token... [Tutorial](https://discordjs.guide/preparations/setting-up-a-bot-application.html) )
@@ -40,16 +43,16 @@ __*For installation on a Windows (10/2019+) servers...*__
 __*Covering both Linux and Windows environments...*__
 
 - Invite your bot to server(s)... [Tutorial](https://discordjs.guide/preparations/adding-your-bot-to-servers.html)
-- After adding your bot to any servers, you must register your slash commands by running "node deploy.js"
+- After adding your bot to any servers, you must register your slash commands by running "node deploy.js" in the terminal
 - Start your bot:
-	- On Linux run "sudo service conducter start"
+	- On Linux run "sudo service virtuoso start"
 	- On Windows open the "Start.bat" script
 - Bot status:
-	- On Linux run "sudo service conducter status"
-	- On Windows bring your Node/CMD window to the foreground
+	- On Linux run "sudo service virtuoso status"
+	- On Windows bring your terminal window to the foreground
 - Stop your bot:
-	- On Linux run "sudo service conducter stop"
-	- On Windows close the Node/CMD window
+	- On Linux run "sudo service virtuoso stop"
+	- On Windows close the terminal window
 - Discord Commands:
 	- /play: Plays the linked (or searched) YouTube audio
 	- /skip: Skips the current song
@@ -57,5 +60,5 @@ __*Covering both Linux and Windows environments...*__
 	- /resume: Resumes music playback
 	- /stop: Disconnects the bot and resets audio state
 	- /loop: Toggles looping feature
-	- /about: Displays an overview of Conducter
+	- /about: Displays an overview of Virtuoso
 	- /ping: Tests your slash command

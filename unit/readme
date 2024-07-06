@@ -1,9 +1,9 @@
-Follow this guide to properly setup the Conducter services for linux...
+Follow this guide to properly setup the Virtuoso services for linux...
 
 [Specify the install directory and service user]:
-* Change the "User" to an existing user and "WorkingDirectory" to the location of conducter folder...
+* Change the "User" to an existing user and "WorkingDirectory" to the location of virtuoso folder...
 
-> nano conducter.service
+> nano virtuoso.service
 
 
 
@@ -13,38 +13,38 @@ Follow this guide to properly setup the Conducter services for linux...
 	
    [OR]
 
-1. sudo cp conducter.service /etc/systemd/system/conducter.service
+1. sudo cp virtuoso.service /etc/systemd/system/virtuoso.service
 	   
 2. sudo systemctl daemon-reload
 	   
-3. sudo systemctl enable conducter
+3. sudo systemctl enable virtuoso
 
 
 
 [Start the server]:
 
-sudo systemctl start conducter
+sudo systemctl start virtuoso
 
 
 
 [Check current status]:
 
-sudo systemctl status conducter
+sudo systemctl status virtuoso
 
 
 
 [Stop the server]:
 
-sudo systemctl stop conducter
+sudo systemctl stop virtuoso
 
 
 
 [Restart the server]:
 
-sudo systemctl restart conducter
+sudo systemctl restart virtuoso
 
 
 
 [View the server logs]:
 
-journalctl -f -u conducter
+journalctl -f -u virtuoso

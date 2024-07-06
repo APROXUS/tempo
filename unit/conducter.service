@@ -1,13 +1,13 @@
 [Unit]
-Description=Conducter Bot, Conducter service config...
+Description=Virtuoso: A simple Discord music bot...
 After=network-online.target
 
 [Service]
-User=albie
+User=ubuntu
 TimeoutStartSec=0
 Type=simple
 KillMode=process
-WorkingDirectory=/home/albie/conducter/
+WorkingDirectory=/home/ubuntu/virtuoso/
 ExecStart=/usr/local/bin/node index.js
 Restart=always
 RestartSec=10

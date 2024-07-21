@@ -18,6 +18,9 @@ __*For installation on a Linux (Ubuntu based) servers...*__
 
 - Finally, create the service files (see unit/readme for more information)...
 
+- Depending on installation/executed permissions, the YT-DLP may not have the correct permissions...
+  	- You can use chmod (or similar utilities) to give YT-DLP executable perms
+
 __*For installation on a Windows (10/2019+) servers...*__
 
 - Install [Node.js](https://nodejs.org/en/download) (this will also install [NPM](https://www.npmjs.com/))

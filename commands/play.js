@@ -5,6 +5,8 @@ const { promisify } = require('util');
 const exec = promisify(require('node:child_process').exec);
 const writeFile = promisify(require('node:fs').writeFile);
 
+const fs = require('node:fs');
+
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('play')
@@ -43,7 +45,7 @@ module.exports = {
 
         const query = interaction.options.getString('query').replace(/('|"|\/|\\)/g, '_');
 
-        const command = `./yt-dlp --quiet --print-json --no-playlist --format 'ba' --default-search 'ytsearch' --output '${music}%(id)s.webm' '${query}'`;
+        const command = `./yt-dlp -q -j -f 'ba' --default-search 'ytsearch' --no-playlist --skip-download '${query}'`;
 
         const shell = ((process.platform === 'win32') ? 'powershell.exe' : '/bin/bash');
 
@@ -51,11 +53,13 @@ module.exports = {
         try {
             const { stdout } = await exec(command, { shell: shell, cwd: __dirname });
             output = stdout;
-        } catch {
+        } catch (error) {
+            console.log(error);
+
             const embed = new EmbedBuilder()
-                .setTitle('🛑  Could add this song, try another...')
+                .setTitle('🛑  Couldn\'t add this song, try another...')
                 .setColor(0x8617FE)
-            
+
             await interaction.editReply({
                 embeds: [embed]
             });
@@ -64,6 +68,10 @@ module.exports = {
         }
 
         add();
+
+        if (!fs.existsSync(music)){
+            fs.mkdirSync(music);
+        }
 
         await writeFile(`${music}${last()}.json`, output);
 
@@ -74,7 +82,7 @@ module.exports = {
             .setDescription(object.uploader)
             .setThumbnail(object.thumbnail)
             .setColor(0x8617FE)
-                
+
         await interaction.editReply({
             embeds: [embed]
         });

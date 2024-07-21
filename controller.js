@@ -34,9 +34,7 @@ module.exports = {
         subscription = connection.subscribe(player);
 
         const object = JSON.parse(await readFile(`music/${interaction.guildId}/${queue}.json`));
-        resource = createAudioResource(createReadStream(`music/${interaction.guildId}/${object.id}.webm`), {
-            inputType: StreamType.WebmOpus
-        });
+        resource = createAudioResource(object.url);
 
         player.play(resource);
 
@@ -44,19 +42,19 @@ module.exports = {
             if (!loop) {
                 require('./controller').next(interaction);
             } else {
-                resource = createAudioResource(createReadStream(`music/${interaction.guildId}/${object.id}.webm`), {
-                    inputType: StreamType.WebmOpus
-                });
+                resource = createAudioResource(object.url);
 
                 player.play(resource);
             }
         });
 
-        player.on('error', async () => {
+        player.on('error', async (error) => {
+            console.log(`Error: ${error.message}`);
+
             const embed = new EmbedBuilder()
                 .setTitle('🛑  Could not play this song — skipping...')
                 .setColor(0x8617FE)
-            
+
             await interaction.channel.send({
                 embeds: [embed]
             });
@@ -74,7 +72,7 @@ module.exports = {
                 const embed = new EmbedBuilder()
                     .setTitle('🛑  Please use "/stop" to disconnect Virtuoso...')
                     .setColor(0x8617FE)
-                
+
                 await interaction.channel.send({
                     embeds: [embed]
                 });
@@ -109,9 +107,7 @@ module.exports = {
                 embeds: [embed]
             });
 
-            resource = createAudioResource(createReadStream(`music/${interaction.guildId}/${object.id}.webm`), {
-                inputType: StreamType.WebmOpus
-            });
+            resource = createAudioResource(object.url);
 
             player.play(resource);
         }
@@ -125,7 +121,7 @@ module.exports = {
             const embed = new EmbedBuilder()
                 .setTitle('🛑  Virtuoso is not connected...')
                 .setColor(0x8617FE)
-                
+
             await interaction.editReply({
                 embeds: [embed]
             });
@@ -138,7 +134,7 @@ module.exports = {
             const files = await readdir('music/' + interaction.guildId, {
                 withFileTypes: true
             });
-    
+
             for (const file of files) {
                 if (file.name.endsWith('.json')) {
                     await unlink(`${'music/' + interaction.guildId}/${file.name}`);
@@ -148,7 +144,7 @@ module.exports = {
             const embed = new EmbedBuilder()
                 .setTitle('🛑  File error, please reset...')
                 .setColor(0x8617FE)
-                
+
             await interaction.channel.send({
                 embeds: [embed]
             });
@@ -161,7 +157,7 @@ module.exports = {
             const embed = new EmbedBuilder()
                 .setTitle('🛑  Virtuoso is not connected...')
                 .setColor(0x8617FE)
-                
+
             await interaction.editReply({
                 embeds: [embed]
             });
@@ -174,7 +170,7 @@ module.exports = {
             const embed = new EmbedBuilder()
                 .setTitle('🛑  Virtuoso is not connected...')
                 .setColor(0x8617FE)
-                
+
             await interaction.editReply({
                 embeds: [embed]
             });

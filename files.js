@@ -6,9 +6,9 @@ module.exports = {
         const files = readdirSync(folder, {
             withFileTypes: true
         });
-    
+
         let commandFiles = [];
-    
+
         for (const file of files) {
             if (file.isDirectory()) {
                 commandFiles = [
@@ -19,18 +19,18 @@ module.exports = {
                 commandFiles.push(`${folder}/${file.name}`);
             }
         }
-    
+
         return commandFiles;
     }, getCommands(folder) {
         const commandFiles = require('./files').getFiles(folder);
         let commands = new Collection;
-    
+
         for (const file of commandFiles) {
             const command = require(file);
-        
+
             commands.set(command.data.toJSON().name, command);
         }
-    
+
         return commands;
     }
 }
